@@ -13,7 +13,7 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
-.terraform
+.terraform*
 .terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/windows_amd64/terraform-provider-aws_v5.100.0_x5.exe
 
 # OS files
