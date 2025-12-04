@@ -1,4 +1,10 @@
 terraform {
+  backend "remote" {
+    organization = "Sathish_Yathish"
+    workspaces {
+      name = "Dev"
+    }
+  }
   required_version = ">= 1.0"
 
   required_providers {
