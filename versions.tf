@@ -33,3 +33,7 @@ provider "kubernetes" {
     args        = ["eks", "get-token", "--cluster-name", aws_eks_cluster.main.name, "--region", var.aws_region]
   }
 }
+
+provider "aws" {
+  region = "us-east-1"
+}
