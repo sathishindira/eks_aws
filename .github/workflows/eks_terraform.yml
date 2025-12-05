@@ -45,4 +45,4 @@ jobs:
 
     # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var-file=terraform.tfvars
+        run: terraform plan
