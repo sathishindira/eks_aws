@@ -4,6 +4,7 @@ on: [push, workflow_dispatch]
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   terraform:
@@ -17,6 +18,14 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
       - name: code checkout
         uses: actions/checkout@v5
+
+    #Connect AWS account with OIDC Provider
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.1.1
+        with:
+          audience: sts.amazonaws.com
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::805702559038:role/Github_Actions_EKS_Repo
       
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -34,4 +43,4 @@ jobs:
 
     # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -input=false
+        run: terraform plan -var-file=terraform.tfvars
