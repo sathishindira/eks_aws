@@ -11,6 +11,9 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: dev
+    permissions:
+      contents: read
+      id-token: write
     defaults:
       run:
         shell: bash
@@ -23,7 +26,6 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5.1.1
         with:
-          audience: sts.amazonaws.com
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::805702559038:role/Github_Actions_EKS_Repo
       
