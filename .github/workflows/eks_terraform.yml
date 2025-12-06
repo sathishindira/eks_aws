@@ -1,6 +1,18 @@
 name: 'Terraform'
 
-on: [push, workflow_dispatch]
+on: 
+  push:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Provide environment to the Pipeline"
+        type: choice
+        options:
+          - dev
+          - uat
+          - prod
+        default: Dev
+        required: true
 
 permissions:
   contents: read
@@ -10,7 +22,7 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{inputs.environment}}
     permissions:
       contents: read
       id-token: write
