@@ -23,8 +23,12 @@ permissions:
 
 jobs:
   terraform:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+    continue-on-error: true
     name: 'Terraform'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     environment: ${{inputs.environment}}
     permissions:
       contents: read
