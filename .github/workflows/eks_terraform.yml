@@ -69,3 +69,4 @@ jobs:
     # Execution of Terraform apply
       - name: Terraform apply
         run: terraform apply --auto-approve
+

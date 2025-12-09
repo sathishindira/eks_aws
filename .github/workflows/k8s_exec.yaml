@@ -1,0 +1,20 @@
+    name: Deploy with manual kubectl setup
+    on: [push]
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v5
+          
+          - name: Install kubectl
+            run: |
+              curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+              chmod +x kubectl
+              sudo mv kubectl /usr/local/bin/
+
+
+          - name: Run kubectl command
+            run: kubectl get pods
+
+          - name: get the aws eks configuration
+            run: kubectl get configmap aws-auth -n kube-system -o yaml > aws-auth.yaml
