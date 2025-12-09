@@ -89,39 +89,39 @@ resource "aws_launch_template" "eks_node_group" {
 }
 
 # EKS Node Group
-# resource "aws_eks_node_group" "main" {
-#   cluster_name    = aws_eks_cluster.main.name
-#   node_group_name = "${var.cluster_name}-nodes"
-#   node_role_arn   = aws_iam_role.eks_node_group.arn
-#   subnet_ids      = aws_subnet.private[*].id
+resource "aws_eks_node_group" "main" {
+  cluster_name    = aws_eks_cluster.main.name
+  node_group_name = "${var.cluster_name}-nodes"
+  node_role_arn   = aws_iam_role.eks_node_group.arn
+  subnet_ids      = aws_subnet.private[*].id
 
-#   capacity_type = "ON_DEMAND"
+  capacity_type = "ON_DEMAND"
 
-#   launch_template {
-#     id      = aws_launch_template.eks_node_group.id
-#     version = aws_launch_template.eks_node_group.latest_version
-#   }
+  launch_template {
+    id      = aws_launch_template.eks_node_group.id
+    version = aws_launch_template.eks_node_group.latest_version
+  }
 
-#   scaling_config {
-#     desired_size = var.node_desired_size
-#     max_size     = var.node_max_size
-#     min_size     = var.node_min_size
-#   }
+  scaling_config {
+    desired_size = var.node_desired_size
+    max_size     = var.node_max_size
+    min_size     = var.node_min_size
+  }
 
-#   update_config {
-#     max_unavailable = 1
-#   }
+  update_config {
+    max_unavailable = 1
+  }
 
-#   depends_on = [
-#     aws_iam_role_policy_attachment.eks_worker_node_policy,
-#     aws_iam_role_policy_attachment.eks_cni_policy,
-#     aws_iam_role_policy_attachment.eks_container_registry_policy,
-#   ]
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_worker_node_policy,
+    aws_iam_role_policy_attachment.eks_cni_policy,
+    aws_iam_role_policy_attachment.eks_container_registry_policy,
+  ]
 
-#   tags = {
-#     Name = "${var.cluster_name}-node-group"
-#   }
-# }
+  tags = {
+    Name = "${var.cluster_name}-node-group"
+  }
+}
 
 # Security Group for EKS Nodes
 resource "aws_security_group" "eks_nodes" {
