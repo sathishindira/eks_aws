@@ -6,13 +6,19 @@
         steps:
           - uses: actions/checkout@v5
 
+          #Connect AWS account with OIDC Provider
+          - name: Configure AWS Credentials
+            uses: aws-actions/configure-aws-credentials@v5.1.1
+            with:
+              aws-region: us-east-1
+              role-to-assume: arn:aws:iam::805702559038:role/Terraform_Cloud
+
           - name: Install kubectl
             run: |
               curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
               chmod +x kubectl
               sudo mv kubectl /usr/local/bin/
               aws sts get-caller-identity
-
 
           - name: Run kubectl command
             run: kubectl get pods
