@@ -65,6 +65,11 @@ resource "aws_eks_cluster" "main" {
     public_access_cidrs     = [var.workstation_cidr]
   }
 
+  access_config {
+    authentication_mode                         = "API_AND_CONFIG_MAP"
+    bootstrap_cluster_creator_admin_permissions = true
+  }
+
   encryption_config {
     provider {
       key_arn = aws_kms_key.eks.arn
@@ -104,4 +109,22 @@ resource "aws_kms_key" "eks" {
 resource "aws_kms_alias" "eks" {
   name          = "alias/${var.cluster_name}-eks-encryption-key"
   target_key_id = aws_kms_key.eks.key_id
+}
+
+resource "aws_eks_access_entry" "admin" {
+  cluster_name     = aws_eks_cluster.main.name
+  principal_arn    = "arn:aws:iam::805702559038:user/sathish"
+  kubernetes_groups = ["eks-admins"] 
+}
+
+resource "aws_eks_access_policy_association" "admin_cluster_admin" {
+  cluster_name  = aws_eks_cluster.main.name
+  principal_arn = aws_eks_access_entry.admin.principal_arn
+
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+    # namespaces = [] # if type = "namespace", not needed here
+  }
 }
