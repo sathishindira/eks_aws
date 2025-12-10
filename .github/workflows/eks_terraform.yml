@@ -30,7 +30,7 @@ jobs:
     continue-on-error: true
     name: 'Terraform'
     runs-on: ${{ matrix.os }}
-    environment: ${{inputs.environment}}
+    environment: "Dev"
     permissions:
       contents: read
       id-token: write
