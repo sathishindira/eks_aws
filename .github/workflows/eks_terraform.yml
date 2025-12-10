@@ -5,6 +5,7 @@ on:
     branches:
       - DEV
       - UAT
+      - main
   workflow_dispatch:
     inputs:
       environment:
@@ -68,7 +69,7 @@ jobs:
 
     # Execution of Terraform apply
       - name: Terraform apply
-        run: terraform destroy --auto-approve
+        run: terraform apply --auto-approve
 
     #Install kubectl and verifing the credentials
       - name: Install kubectl
