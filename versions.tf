@@ -2,7 +2,7 @@ terraform {
   backend "remote" {
     organization = "Sathish_Yathish"
     workspaces {
-      name = "Dev"
+      name = "EKS_Dev"
     }
   }
   required_version = ">= 1.0"
