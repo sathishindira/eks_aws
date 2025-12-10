@@ -31,13 +31,13 @@ variable "workstation_cidr" {
 variable "node_instance_type" {
   description = "EC2 instance type for EKS nodes"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "node_desired_size" {
   description = "Desired number of nodes"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "node_max_size" {
