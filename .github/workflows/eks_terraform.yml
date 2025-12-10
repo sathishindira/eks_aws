@@ -81,4 +81,3 @@ jobs:
 
           aws eks update-kubeconfig --name <cluster-name> --region <region>
           kubectl get nodes
-
